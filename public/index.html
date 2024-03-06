@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>文章送信と返答表示</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <form id="textForm">
+        <textarea name="userText" id="userText" rows="4" cols="50"></textarea>
+        <button type="submit">送信</button>
+    </form>
+    <div id="response"></div>
+    <script>
+    const socket = io();
+
+document.getElementById('textForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const userText = document.getElementById('userText').value;
+  document.getElementById('response').textContent = ''; // 送信前に以前の返答をクリア
+  socket.emit('sendText', userText);
+});
+
+socket.on('replyText', function(letter) {
+  // ここでは追加のクリア操作は不要。新しい文字が追加されるだけ。
+  document.getElementById('response').textContent += letter;
+});
+    </script>
+</body>
+</html>
