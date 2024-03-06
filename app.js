@@ -19,7 +19,7 @@ const port = 3000;
 const OpenAI = require("openai");
 const openai = new OpenAI();
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('5c9eb055ef034d378853a6f7a495fd92');
+const newsapi = new NewsAPI(process.env.news_api);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
